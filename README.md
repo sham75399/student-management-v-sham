@@ -2,6 +2,8 @@
 
 A responsive student records portal built with React, Vite, and Tailwind CSS. The dashboard summarizes student enrollment and department information, while the Students page supports searching, filtering, sorting, and managing student records.
 
+🌐 **Live Demo:** [Open Application](https://student-management-v-sham.vercel.app)
+
 ## Student
 
 **Name:** V. Sham
