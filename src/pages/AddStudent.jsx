@@ -6,6 +6,13 @@ function AddStudent({
   editingStudent,
   onUpdateStudent,
 }) {
+  const semesterOptions = {
+    "I": ["I", "II"],
+    "II": ["III", "IV"],
+    "III": ["V", "VI"],
+    "IV": ["VII", "VIII"],
+  };
+
   const [formData, setFormData] = useState(
     editingStudent || {
       registerNo: "",
@@ -22,6 +29,21 @@ function AddStudent({
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+
+    if (name === "year") {
+      setFormData((previous) => ({
+        ...previous,
+        year: value,
+        semester: "",
+      }));
+
+      setErrors((previous) => ({
+        ...previous,
+        year: "",
+        semester: "",
+      }));
+      return;
+    }
 
     setFormData((previous) => ({
       ...previous,
@@ -84,6 +106,15 @@ function AddStudent({
 
     if (!formData.semester) {
       newErrors.semester = "Select a semester.";
+    }
+
+    if (
+      formData.year &&
+      formData.semester &&
+      !semesterOptions[formData.year]?.includes(formData.semester)
+    ) {
+      newErrors.semester =
+        `${formData.year} Year students can only be in the corresponding semesters.`;
     }
 
     setErrors(newErrors);
@@ -308,15 +339,12 @@ function AddStudent({
                   : "border-slate-200 focus:border-slate-400"
               }`}
             >
-              <option value="">Select Semester</option>
-              <option value="I">I</option>
-              <option value="II">II</option>
-              <option value="III">III</option>
-              <option value="IV">IV</option>
-              <option value="V">V</option>
-              <option value="VI">VI</option>
-              <option value="VII">VII</option>
-              <option value="VIII">VIII</option>
+              <option value="">Select semester</option>
+              {(semesterOptions[formData.year] || []).map((semester) => (
+                <option key={semester} value={semester}>
+                  Semester {semester}
+                </option>
+              ))}
             </select>
 
             {errors.semester && (
