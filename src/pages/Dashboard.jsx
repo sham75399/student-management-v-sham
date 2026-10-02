@@ -8,6 +8,17 @@ function Dashboard({ students, onDepartmentClick, onViewAllStudents }) {
   const semesters = [...new Set(
     students.map((student) => student.semester)
   )];
+  const semesterOrder = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII"];
+  const getSemesterNumber = (semester) => {
+    const numericSemester = Number(semester);
+
+    if (!Number.isNaN(numericSemester)) {
+      return numericSemester;
+    }
+
+    const romanIndex = semesterOrder.indexOf(semester);
+    return romanIndex === -1 ? Number.MAX_SAFE_INTEGER : romanIndex + 1;
+  };
 
   const departmentCounts = students.reduce((acc, student) => {
     acc[student.department] =
@@ -16,9 +27,9 @@ function Dashboard({ students, onDepartmentClick, onViewAllStudents }) {
     return acc;
   }, {});
 
-  const yearCounts = students.reduce((acc, student) => {
-    acc[student.year] =
-      (acc[student.year] || 0) + 1;
+  const semesterCounts = students.reduce((acc, student) => {
+    acc[student.semester] =
+      (acc[student.semester] || 0) + 1;
 
     return acc;
   }, {});
@@ -184,31 +195,36 @@ function Dashboard({ students, onDepartmentClick, onViewAllStudents }) {
           </div>
         </div>
 
-        {/* Year Distribution */}
+        {/* Semester Distribution */}
         <div className="bg-white border border-slate-200 rounded-2xl p-6">
 
           <div className="mb-6">
             <h2 className="text-lg font-semibold text-slate-900">
-              Academic Year
+              Semester Distribution
             </h2>
 
             <p className="text-sm text-slate-500 mt-1">
-              Students grouped by year
+              Students grouped by semester
             </p>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
 
-            {Object.entries(yearCounts).map(
-              ([year, count]) => (
+            {Object.entries(semesterCounts)
+              .sort(([firstSemester], [secondSemester]) =>
+                getSemesterNumber(firstSemester) -
+                getSemesterNumber(secondSemester)
+              )
+              .map(
+              ([semester, count]) => (
 
                 <div
-                  key={year}
+                  key={semester}
                   className="border border-slate-200 rounded-xl p-5"
                 >
 
                   <p className="text-sm text-slate-500">
-                    Year {year}
+                    Semester {semester}
                   </p>
 
                   <p className="text-2xl font-bold text-slate-900 mt-2">
