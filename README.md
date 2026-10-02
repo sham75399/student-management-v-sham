@@ -130,15 +130,15 @@ public/
 
 ### Dashboard
 
-![Dashboard](screenshots/dashboard.png)
+![Dashboard](./screenshots/dashboard.png)
 
 ### Students
 
-![Students page](screenshots/students.png)
+![Students](./screenshots/students.png)
 
 ### Add Student
 
-![Add Student form](screenshots/add-student.png)
+![Add Student](./screenshots/add-student.png)
 
 ## Academic Project
 
