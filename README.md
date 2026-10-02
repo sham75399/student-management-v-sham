@@ -134,11 +134,11 @@ public/
 
 ### Students
 
-![Students](./screenshots/students.png)
+![Students](./Screenshots/students.png)
 
 ### Add Student
 
-![Add Student](./screenshots/add-student.png)
+![Add Student](./Screenshots/add-student.png)
 
 ## Academic Project
 
